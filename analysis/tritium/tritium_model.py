@@ -148,6 +148,15 @@ for generator in general_data["generators"]:
         irr_stop_time = irr_stop_time.total_seconds() * ureg.second
         irradiations.append([irr_start_time, irr_stop_time])
 
+                # {
+                #     "start": "30/11/2024 9:00",
+                #     "end": "30/11/2024 20:00"
+                # }
+
+irradiations.append([
+    14 * ureg.day, 14 * ureg.day + 6 * ureg.hours
+])
+
 # Neutron rate
 # calculated from Kevin's activation foil analysis from run 100 mL #7
 # TODO replace for values for this run
@@ -194,6 +203,8 @@ measured_TBR = (T_produced / quantity_to_activity(T_consumed)).to(
 optimised_ratio = 1.7e-2
 k_top = 8.9e-8 * ureg.m * ureg.s**-1
 k_wall = optimised_ratio * k_top
+
+
 
 
 baby_model = Model(
