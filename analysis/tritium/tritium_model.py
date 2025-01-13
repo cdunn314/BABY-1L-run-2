@@ -192,9 +192,38 @@ measured_TBR = (T_produced / quantity_to_activity(T_consumed)).to(
 )
 
 optimised_ratio = 1.7e-2
-k_top = 8.9e-8 * ureg.m * ureg.s**-1
+k_top = 0.6 * 8.9e-8 * ureg.m * ureg.s**-1
 k_wall = optimised_ratio * k_top
 
+
+neutron_rate_factor = 1.25
+neutron_rate *= neutron_rate_factor
+
+improvement_factor = 2.0
+time_when_flow_is_improved = 14 * ureg.day
+def new_k_top(t):
+    try:
+        if t < time_when_flow_is_improved:
+            return k_top
+        else:
+            return k_top * improvement_factor
+    except ValueError:
+        idx = np.where(t> time_when_flow_is_improved)
+        k = np.ones_like(t) * k_top
+        k[idx] = k_top * improvement_factor
+        return k
+
+def new_k_wall(t):
+    try:
+        if t < time_when_flow_is_improved:
+            return k_wall
+        else:
+            return k_wall * improvement_factor
+    except ValueError:
+        idx = np.where(t> time_when_flow_is_improved)
+        k = np.ones_like(t) * k_wall
+        k[idx] = k_wall * improvement_factor
+        return k
 
 baby_model = Model(
     radius=baby_radius,
@@ -202,8 +231,8 @@ baby_model = Model(
     TBR=calculated_TBR,  # TODO replace by measured_TBR
     neutron_rate=neutron_rate,
     irradiations=irradiations,
-    k_top=k_top,
-    k_wall=k_wall,
+    k_top=new_k_top,
+    k_wall=new_k_wall,
 )
 
 
@@ -242,14 +271,14 @@ processed_data = {
         "value": baby_model.TBR.magnitude,
         "unit": str(baby_model.TBR.units),
     },
-    "k_top": {
-        "value": baby_model.k_top.magnitude,
-        "unit": str(baby_model.k_top.units),
-    },
-    "k_wall": {
-        "value": baby_model.k_wall.magnitude,
-        "unit": str(baby_model.k_wall.units),
-    },
+    # "k_top": {
+    #     "value": baby_model.k_top.magnitude,
+    #     "unit": str(baby_model.k_top.units),
+    # },
+    # "k_wall": {
+    #     "value": baby_model.k_wall.magnitude,
+    #     "unit": str(baby_model.k_wall.units),
+    # },
     "cumulative_tritium_release": {
         label: {
             **{
