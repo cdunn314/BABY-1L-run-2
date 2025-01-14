@@ -158,6 +158,8 @@ neutron_rate_relative_uncertainty = 0.089
 neutron_rate = (
     P383_neutron_rate
 ) / 2  # the neutron rate is divided by two to acount for the double counting (two detectors)
+neutron_rate_factor = 1.3
+neutron_rate *= neutron_rate_factor
 
 # TBR from OpenMC
 
@@ -192,14 +194,12 @@ measured_TBR = (T_produced / quantity_to_activity(T_consumed)).to(
 )
 
 optimised_ratio = 1.7e-2
-k_top = 0.6 * 8.9e-8 * ureg.m * ureg.s**-1
+k_top = 0.5 * 8.9e-8 * ureg.m * ureg.s**-1
 k_wall = optimised_ratio * k_top
 
 
-neutron_rate_factor = 1.25
-neutron_rate *= neutron_rate_factor
 
-improvement_factor = 2.0
+improvement_factor = 1.5
 time_when_flow_is_improved = 14 * ureg.day
 def new_k_top(t):
     try:
