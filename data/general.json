@@ -135,7 +135,7 @@
             "position": "on generators, at target plane, facing top and bottom",
             "materials": [
                 {
-                    "position": "A 325 - top",
+                    "position": "P-383 - top",
                     "material": "Nb",
                     "designator": "Nb Packet #4",
                     "number_of_foils": 2,
@@ -157,7 +157,7 @@
                     }
                 },
                 {
-                    "position": "A 325 - bottom",
+                    "position": "P-383 - bottom",
                     "material": "Zr",
                     "designator": "Zr Packet #1",
                     "number_of_foils": 8,
