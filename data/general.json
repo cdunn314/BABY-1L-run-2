@@ -137,14 +137,18 @@
                 {
                     "position": "A 325 - top",
                     "material": "Nb",
-                    "designator": "Nb Packet #4"
+                    "designator": "Nb Packet #4",
                     "number_of_foils": 2,
+                    "distance_to_source": {
+                        "value": 5.1,
+                        "unit": "cm"
+                    },
                     "mass": {
                         "value": 0.5467,
                         "unit": "g"
                     },
                     "mass_err": {
-                        "value": 0.0003
+                        "value": 0.0003,
                         "unit": "g"
                     },
                     "thickness": {
@@ -155,8 +159,12 @@
                 {
                     "position": "A 325 - bottom",
                     "material": "Zr",
-                    "designator": "Zr Packet #1"
+                    "designator": "Zr Packet #1",
                     "number_of_foils": 8,
+                    "distance_to_source": {
+                        "value": 5.1,
+                        "unit": "cm"
+                    },
                     "mass": {
                         "value": 0.9036,
                         "unit": "g"
